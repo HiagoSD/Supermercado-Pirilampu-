@@ -16,11 +16,9 @@ Bem-vindo ao projeto **Supermercado Pirilampu**! Este projeto é uma aplicação
 
 ## 🖼️ Screenshots
 
-![Tela Inicial](caminho/para/screenshot1.png)
-*Descrição da tela inicial.*
+![Imagem do WhatsApp de 2024-09-25 à(s) 23 29 51_418b741e](https://github.com/user-attachments/assets/5bcad800-6e94-4c8d-9a2a-c1025bbecf6c)
 
-![Resultado da Pesquisa](caminho/para/screenshot2.png)
-*Descrição do resultado da pesquisa.*
+![Imagem do WhatsApp de 2024-09-25 à(s) 23 30 15_5ea749e5](https://github.com/user-attachments/assets/35335787-8ad6-4ccc-8b66-a7aa843954bf)
 
 ## 🚀 Tecnologias Utilizadas
 
