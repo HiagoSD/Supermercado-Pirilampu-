@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="suppirilampo.css">
+    <title>Supermecado Pirilampu</title>
+</head>
+
+<body>
+    <section>
+        <div class="searchSection">
+            <img src="images/Pirilampu.png">
+            <div class="inputContainer">
+                <input type="text" id="inputText" placeholder="Digite o nome do produto">
+                <button id="searchButton" class="search-button" onclick="searchProducts()">
+                    <img src="images/2866321.png" alt="Lupa">
+                </button>
+            </div>
+        </div>
+
+        <div class="productsSection">
+            <div class="checkbox">
+                <p>Filtrar:</p>
+                <input type="checkbox" id="check1" data-filter="productVit" onclick="filterProducts()"><label
+                    for="check1">Vitamina</label>
+                <input type="checkbox" id="check2" data-filter="productProm" onclick="filterProducts()"><label
+                    for="check2">Promoção</label>
+                <input type="checkbox" id="check3" data-filter="productAler" onclick="filterProducts()"><label
+                    for="check3">Alérgico</label>
+            </div>
+
+            <div class="product productLeite" data-name="Leite de Soja"
+                data-product="productVit,productProm,productAler">
+                <img src="images/leitesoja.jpg" alt="Leite de Soja">
+                <p id="leiteDeSoja"></p>
+                <p id="valorLeiDeSoj"></p>
+                <input type="button" value="Comprar">
+            </div>
+
+            <div class="product productSuplemento" data-name="Suplemento Multivitamínico" data-product="productVit">
+                <img src="images/suplemento.webp" alt="Suplemento Multivitamínico">
+                <p id="suplemento"> </p>
+                <p id="valorSuplemen"> </p>
+                <input type="button" value="Comprar">
+            </div>
+
+            <div class="product productPaoInt" data-name="Pão Integral" data-product="productVit,productProm">
+                <img src="images/paoInt.webp" alt="Pão Integral">
+                <p id="paoInt"> </p>
+                <p id="valorPaoInt"> </p>
+                <input type="button" value="Comprar">
+            </div>
+
+            <div class="product productQueijoFres" data-name="Queijo Fresco" data-product="productAler">
+                <img src="images/queijoFres.png" alt="Queijo Fresco">
+                <p id="queijoFres"> </p>
+                <p id="valorQueijFres"> </p>
+                <input type="button" value="Comprar">
+            </div>
+
+            <div class="product productCerealMat" data-name="Cereal Matinal" data-product="productVit,productProm">
+                <img src="images/cerealMat.jpg" alt="Cereal Matinal">
+                <p id="cerealMat"> </p>
+                <p id="valorCerealMat"> </p>
+                <input type="button" value="Comprar">
+            </div>
+
+            <div class="product productSalgadinho" data-name="Salgadinho" data-product="productProm">
+                <img src="images/salgadinho.png" alt="Salgadinho">
+                <p id="salgadinho"> </p>
+                <p id="valorSalgadinho"> </p>
+                <input type="button" value="Comprar">
+            </div>
+        </div>
+
+    </section>
+
+    <script>
+        const produtos = [
+            {
+                nome: "Leite de Soja",
+                quantidadeEmEstoque: 25,
+                valor: 15.99,
+                chanceDeAlergia: true,
+                possuiVitaminas: true,
+                promocao: true
+            },
+            {
+                nome: "Suplemento Multivitamínico",
+                quantidadeEmEstoque: 20,
+                valor: 89.99,
+                chanceDeAlergia: false,
+                possuiVitaminas: true,
+                promocao: false
+            },
+            {
+                nome: "Pão Integral",
+                quantidadeEmEstoque: 0,
+                valor: 6.49,
+                chanceDeAlergia: false,
+                possuiVitaminas: true,
+                promocao: true
+            },
+            {
+                nome: "Queijo Fresco",
+                quantidadeEmEstoque: 15,
+                valor: 11.99,
+                chanceDeAlergia: true,
+                possuiVitaminas: false,
+                promocao: false
+            },
+            {
+                nome: "Cereal Matinal",
+                quantidadeEmEstoque: 40,
+                valor: 7.25,
+                chanceDeAlergia: false,
+                possuiVitaminas: true,
+                promocao: true
+            },
+            {
+                nome: "Salgadinho",
+                quantidadeEmEstoque: 76,
+                valor: 8.99,
+                chanceDeAlergia: false,
+                possuiVitaminas: false,
+                promocao: true
+            }
+        ];
+
+        const productNames = (array) => {
+            const ids = ["leiteDeSoja", "suplemento", "paoInt", "queijoFres", "cerealMat", "salgadinho"];
+
+            ids.forEach((id, index) => {
+                if (array[index]) {
+                    document.getElementById(id).innerText = array[index].nome
+                }
+            });
+        }
+        productNames(produtos)
+
+        const productValues = (array) => {
+            const value = ["valorLeiDeSoj", "valorSuplemen", "valorPaoInt", "valorQueijFres", "valorCerealMat", "valorSalgadinho"];
+
+            value.forEach((id, index) => {
+                if (array[index]) {
+                    document.getElementById(id).innerText = `R$ ${array[index].valor}`
+                }
+            })
+        }
+        productValues(produtos)
+
+        const searchProducts = () => {
+            const query = document.getElementById('inputText').value.toLowerCase();
+            const products = document.querySelectorAll('.product');
+
+            products.forEach(product => {
+                const productName = product.getAttribute('data-name').toLowerCase();
+                if (productName.includes(query)) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none'
+                }
+            })
+        }
+
+        const queryButton = document.getElementById('inputText').addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                searchProducts();
+            }
+        })
+
+        const resetPage = () => {
+            document.getElementById('inputText').value = '';
+            filterProducts()
+        }
+
+        const reset = document.getElementById('inputText').addEventListener('input', () => {
+            const query = document.getElementById('inputText').value;
+            if (query === '') {
+                resetPage();
+            }
+        })
+
+        const filterProducts = () => {
+            const checkboxes = document.querySelectorAll('.checkbox input[type="checkbox"]');
+            const activeFilters = [];
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    const filter = checkbox.getAttribute('data-filter');
+                    if (!activeFilters.includes(filter)) {
+                        activeFilters.push(filter);
+                    }
+                }
+            });
+
+            const products = document.querySelectorAll('.product');
+            products.forEach(product => {
+                const productCategories = product.getAttribute('data-product').split(',');
+                const matches = productCategories.some(category => activeFilters.includes(category));
+
+                if (activeFilters.length === 0 || matches) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none'
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
